@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nox - Keeper of Knowledge</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="background-layer"></div>
+<div class="star-field"></div>
+
+<div class="app">
+
+<!-- LOGIN -->
+<section class="page active" id="loginPage">
+
+  <div class="image-wrap">
+    <img src="image/Nox.png" class="nox">
+  </div>
+
+  <div class="panel">
+
+    <h1 class="title">NOX</h1>
+    <p class="subtitle">The Archive Awaits</p>
+
+    <div class="input">
+      <i class="fa fa-user"></i>
+      <input id="loginEmail" placeholder="Email / Username">
+    </div>
+
+    <div class="input">
+      <i class="fa fa-lock"></i>
+      <input id="loginPass" type="password" placeholder="Password">
+    </div>
+
+    <button class="btn" id="loginBtn">ENTER THE ARCHIVE</button>
+
+    <p class="switch">
+      New to Nox?
+      <button id="toSignup">Awaken</button>
+    </p>
+
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<section class="page" id="signupPage">
+
+  <div class="image-wrap">
+    <img src="image/Nox.png" class="nox">
+  </div>
+
+  <div class="panel">
+
+    <h1 class="title">BECOME A SEEKER</h1>
+    <p class="subtitle">Join the Living Archive</p>
+
+    <div class="input">
+      <i class="fa fa-user"></i>
+      <input id="suName" placeholder="Username">
+    </div>
+
+    <div class="input">
+      <i class="fa fa-envelope"></i>
+      <input id="suEmail" placeholder="Email">
+    </div>
+
+    <div class="input">
+      <i class="fa fa-lock"></i>
+      <input id="suPass" type="password" placeholder="Password">
+    </div>
+
+    <div class="input">
+      <i class="fa fa-key"></i>
+      <input id="suConfirm" type="password" placeholder="Confirm Password">
+    </div>
+
+    <button class="btn" id="signupBtn">AWAKEN</button>
+
+    <p class="switch">
+      Already here?
+      <button id="toLogin">Log In</button>
+    </p>
+
+  </div>
+</section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
