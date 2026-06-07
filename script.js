@@ -1,58 +1,83 @@
-let state = {
-  locked: false
-};
+let locked = false;
 
-/* NAVIGATION LOCK */
-function lock(){
-  state.locked = true;
+function sleep(ms){
+return new Promise(r => setTimeout(r, ms));
 }
 
-function unlock(){
-  state.locked = false;
-}
+/* NAVIGATION */
+document.addEventListener("click", async (e)=>{
+
+if(locked) return;
 
 /* LOGIN */
-document.addEventListener("click", (e) => {
+if(e.target.id === "enterBtn"){
 
-  if(e.target.id === "loginBtn"){
-    if(state.locked) return;
+const email = document.getElementById("email").value;
+const pass = document.getElementById("password").value;
 
-    const email = document.getElementById("loginEmail").value;
-    const pass = document.getElementById("loginPassword").value;
+if(!email || !pass){
+alert("Fill both fields");
+return;
+}
 
-    if(!email || !pass){
-      alert("Fill all fields");
-      return;
-    }
+locked = true;
 
-    lock();
-    window.location.href = "home.html";
-  }
+/* CONSTELLATION START */
+const stars = document.querySelectorAll(".star");
 
-  if(e.target.id === "signupBtn"){
-    if(state.locked) return;
+const positions = [
+{x:20,y:20},
+{x:40,y:15},
+{x:60,y:25},
+{x:30,y:55},
+{x:65,y:60},
+{x:50,y:80}
+];
 
-    const n = document.getElementById("suName").value;
-    const e1 = document.getElementById("suEmail").value;
-    const p = document.getElementById("suPass").value;
+stars.forEach((s,i)=>{
+s.style.left = positions[i].x + "%";
+s.style.top = positions[i].y + "%";
+s.style.opacity = 1;
+});
 
-    if(!n || !e1 || !p){
-      alert("Fill all fields");
-      return;
-    }
+await sleep(700);
 
-    lock();
-    window.location.href = "home.html";
-  }
+/* BREAK EFFECT */
+stars.forEach(s=>{
+s.animate([
+{transform:"scale(1)"},
+{transform:"scale(0) translate(-40vw,-40vh)"}
+],{duration:900,fill:"forwards"});
+});
 
-  if(e.target.id === "goSignup"){
-    if(state.locked) return;
-    window.location.href = "signup.html";
-  }
+await sleep(1000);
 
-  if(e.target.id === "goLogin"){
-    if(state.locked) return;
-    window.location.href = "index.html";
-  }
+window.location.href = "home.html";
+}
+
+/* SIGNUP NAV */
+if(e.target.id === "goSignup"){
+window.location.href = "signup.html";
+}
+
+if(e.target.id === "goLogin"){
+window.location.href = "index.html";
+}
+
+/* SIGNUP SUBMIT */
+if(e.target.id === "signupBtn"){
+
+const n = document.getElementById("suName").value;
+const e1 = document.getElementById("suEmail").value;
+const p = document.getElementById("suPass").value;
+
+if(!n || !e1 || !p){
+alert("Fill all fields");
+return;
+}
+
+locked = true;
+window.location.href = "home.html";
+}
 
 });
