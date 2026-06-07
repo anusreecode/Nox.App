@@ -2,224 +2,106 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Poppins;
 }
 
 body{
-
-font-family:'Poppins',sans-serif;
-
-min-height:100vh;
-
-background:
-linear-gradient(
-180deg,
-#020617,
-#071129,
-#020617
-);
-
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:radial-gradient(circle at top,#1b2a4a,#070a12);
 overflow:hidden;
+color:white;
 }
 
+/* LOGIN CARD */
 .container{
-
 width:100%;
-min-height:100vh;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-padding:40px;
-gap:50px;
-}
-
-/* LEFT SIDE */
-
-.nox-section{
-
-flex:1;
-
 display:flex;
 justify-content:center;
-align-items:center;
-
-position:relative;
 }
 
-.nox-img{
-
-width:100%;
-max-width:650px;
-
-object-fit:contain;
-
-animation:float 5s ease-in-out infinite;
-}
-
-/* RIGHT SIDE */
-
-.login-section{
-
-width:100%;
-max-width:420px;
-
-padding:35px;
-
-background:
-rgba(255,255,255,0.04);
-
+.card{
+width:320px;
+padding:30px;
+border-radius:18px;
+background:rgba(255,255,255,0.06);
 backdrop-filter:blur(12px);
-
-border-radius:24px;
-
-box-shadow:
-0 0 40px rgba(0,0,0,.35);
+text-align:center;
+border:1px solid rgba(255,255,255,0.1);
 }
 
-.login-section h1{
-
-font-family:'Cinzel',serif;
-
-font-size:3rem;
-
-color:#f8f4e6;
-
-letter-spacing:6px;
-
-text-align:center;
+.title{
+font-family:Cinzel;
+letter-spacing:4px;
+font-size:40px;
 }
 
 .subtitle{
-
-margin-top:10px;
-
-text-align:center;
-
-color:#b8c3d8;
-
-margin-bottom:35px;
-}
-
-form{
-
-display:flex;
-flex-direction:column;
-
-gap:16px;
+font-size:12px;
+opacity:0.7;
+margin-bottom:20px;
 }
 
 input{
-
-height:56px;
-
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:10px;
 border:none;
-
 outline:none;
-
-padding:0 18px;
-
-font-size:1rem;
-
+background:rgba(255,255,255,0.08);
 color:white;
-
-border-radius:14px;
-
-background:
-rgba(255,255,255,.08);
-}
-
-input::placeholder{
-color:#9aa8c2;
 }
 
 button{
-
-height:56px;
-
+width:100%;
+padding:12px;
+margin-top:10px;
 border:none;
-
+border-radius:12px;
 cursor:pointer;
-
-border-radius:14px;
-
-font-size:1rem;
-
+background:linear-gradient(135deg,#d6b565,#f4df9e);
 font-weight:600;
-
-transition:.3s;
-
-background:
-linear-gradient(
-135deg,
-#2b4c8a,
-#4668b0
-);
-
-color:white;
 }
 
-button:hover{
-
-transform:translateY(-2px);
+.link{
+margin-top:15px;
+font-size:13px;
 }
 
-.signup-btn{
-
-width:100%;
-
-margin-top:14px;
-
-background:
-transparent;
-
-border:1px solid
-rgba(255,255,255,.15);
+.link span{
+color:#f4df9e;
+cursor:pointer;
 }
 
-/* FLOATING */
-
-@keyframes float{
-
-0%{
-transform:translateY(0px);
+/* HOME ANIMATION */
+.home-body{
+background:black;
 }
 
-50%{
-transform:translateY(-12px);
+.empire-overlay{
+position:absolute;
+inset:0;
+background:radial-gradient(circle,#ffffff22,#000000);
+opacity:0;
+animation:fadeIn 2s forwards;
 }
 
-100%{
-transform:translateY(0px);
-}
-}
-
-/* PHONE */
-
-@media(max-width:900px){
-
-.container{
-
-flex-direction:column;
-
-padding:20px;
-
-overflow-y:auto;
+.home-container{
+position:relative;
+text-align:center;
+opacity:0;
+transform:scale(0.9);
+animation:enterEmpire 2.5s forwards;
 }
 
-.nox-section{
-
-flex:none;
+@keyframes fadeIn{
+to{opacity:1;}
 }
 
-.nox-img{
-
-max-width:380px;
-}
-
-.login-section{
-
-width:100%;
-max-width:500px;
-}
+@keyframes enterEmpire{
+0%{opacity:0; transform:scale(0.7);}
+100%{opacity:1; transform:scale(1);}
 }
