@@ -10,129 +10,133 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:radial-gradient(circle at top,#1b2a4a,#070a12);
+background:radial-gradient(circle,#1b2a4a,#06070f);
 overflow:hidden;
 color:white;
 }
 
-/* LOGIN CARD */
+/* BACKGROUND */
+.background{
+position:absolute;
+inset:0;
+background:radial-gradient(circle at top,#2a3b66,#05060c);
+opacity:0.8;
+}
+
+/* CARD */
 .container{
-width:100%;
-display:flex;
-justify-content:center;
+position:relative;
+z-index:2;
 }
 
 .card{
 width:320px;
-padding:30px;
-border-radius:18px;
+padding:25px;
 background:rgba(255,255,255,0.06);
 backdrop-filter:blur(12px);
+border-radius:18px;
 text-align:center;
 border:1px solid rgba(255,255,255,0.1);
 }
 
+/* NOX */
+.nox-hero{
+width:120px;
+margin:0 auto 10px;
+animation:float 4s ease-in-out infinite;
+}
+
+.nox-hero img{
+width:100%;
+filter:drop-shadow(0 0 25px gold);
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+/* TEXT */
 .title{
 font-family:Cinzel;
 letter-spacing:4px;
-font-size:40px;
 }
 
 .subtitle{
 font-size:12px;
 opacity:0.7;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
+/* INPUTS */
 input{
 width:100%;
 padding:12px;
 margin:8px 0;
-border-radius:10px;
 border:none;
-outline:none;
+border-radius:10px;
 background:rgba(255,255,255,0.08);
 color:white;
+outline:none;
 }
 
+/* BUTTON */
 button{
 width:100%;
 padding:12px;
-margin-top:10px;
 border:none;
 border-radius:12px;
-cursor:pointer;
 background:linear-gradient(135deg,#d6b565,#f4df9e);
 font-weight:600;
+cursor:pointer;
 }
 
-.link{
-margin-top:15px;
-font-size:13px;
-}
-
+/* LINK */
 .link span{
 color:#f4df9e;
 cursor:pointer;
 }
 
-/* HOME ANIMATION */
+/* CONSTELLATION */
+.star-field{
+position:absolute;
+inset:0;
+pointer-events:none;
+}
+
+.star{
+position:absolute;
+width:8px;
+height:8px;
+background:white;
+border-radius:50%;
+opacity:0;
+}
+
+/* HOME */
 .home-body{
 background:black;
 }
 
-.empire-overlay{
+.empire-bg{
 position:absolute;
 inset:0;
 background:radial-gradient(circle,#ffffff22,#000000);
-opacity:0;
 animation:fadeIn 2s forwards;
-}
-
-.home-container{
-position:relative;
-text-align:center;
-opacity:0;
-transform:scale(0.9);
-animation:enterEmpire 2.5s forwards;
 }
 
 @keyframes fadeIn{
 to{opacity:1;}
 }
 
-@keyframes enterEmpire{
-0%{opacity:0; transform:scale(0.7);}
-100%{opacity:1; transform:scale(1);}
-}
-.nox-hero{
-width:140px;
-height:140px;
-margin:0 auto 10px auto;
-position:relative;
-animation:floatNox 4s ease-in-out infinite;
-}
-
-.nox-hero img{
-width:100%;
-height:100%;
-object-fit:contain;
-filter:drop-shadow(0 0 25px rgba(212,175,55,0.35));
-}
-
-@keyframes floatNox{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-10px);}
-100%{transform:translateY(0px);}
-}
 .home-nox{
 position:absolute;
 top:20%;
 left:50%;
 transform:translateX(-50%);
-width:180px;
+width:160px;
+animation:reveal 2.5s forwards;
 opacity:0;
-animation:noxReveal 2.5s forwards;
 }
 
 .home-nox img{
@@ -140,7 +144,15 @@ width:100%;
 filter:drop-shadow(0 0 40px gold);
 }
 
-@keyframes noxReveal{
+@keyframes reveal{
 0%{opacity:0; transform:translate(-50%,-20px) scale(0.8);}
-100%{opacity:1; transform:translate(-50%,0px) scale(1);}
+100%{opacity:1; transform:translate(-50%,0) scale(1);}
+}
+
+.home-content{
+position:relative;
+text-align:center;
+top:55%;
+opacity:0;
+animation:fadeIn 2.5s forwards;
 }
