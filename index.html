@@ -12,25 +12,38 @@
 
 <body>
 
-<div class="bg"></div>
+<div class="background"></div>
+
+<!-- CONSTELLATION -->
+<div class="star-field">
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+</div>
 
 <div class="container">
-<div class="nox-hero">
-  <img src="image/Nox.png" alt="Nox">
-</div>
+
   <div class="card">
+
+    <!-- NOX HERO -->
+    <div class="nox-hero">
+      <img src="image/Nox.png" alt="Nox">
+    </div>
 
     <h1 class="title">NOX</h1>
     <p class="subtitle">The Archive Awaits</p>
 
-    <input id="loginEmail" type="text" placeholder="Email / Username">
-    
+    <input type="text" id="email" placeholder="Email / Username">
+
     <div class="input-row">
-      <input id="loginPassword" type="password" placeholder="Password">
+      <input type="password" id="password" placeholder="Password">
       <i class="fa fa-lock"></i>
     </div>
 
-    <button id="loginBtn">ENTER THE ARCHIVE</button>
+    <button id="enterBtn">ENTER THE ARCHIVE</button>
 
     <p class="link">
       New here? <span id="goSignup">Awaken</span>
