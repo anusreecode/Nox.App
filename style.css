@@ -1,0 +1,171 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+
+background: radial-gradient(circle at top,#27335a,#06070d);
+}
+
+/* BACKGROUND */
+.background-layer{
+position:absolute;
+inset:0;
+background: linear-gradient(to bottom,rgba(255,255,255,.03),rgba(0,0,0,.3));
+}
+
+/* STAR FIELD */
+.star-field::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background-image: radial-gradient(white 1px,transparent 1px);
+background-size:50px 50px;
+opacity:.25;
+animation: drift 80s linear infinite;
+}
+
+@keyframes drift{
+from{transform:translateY(0)}
+to{transform:translateY(-400px)}
+}
+
+/* APP */
+.app{
+position:relative;
+width:100%;
+height:100%;
+}
+
+/* PAGE SYSTEM (IMPORTANT FIX) */
+.page{
+position:absolute;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+
+opacity:0;
+pointer-events:none;
+transition:.5s ease;
+transform:scale(1.05);
+}
+
+.page.active{
+opacity:1;
+pointer-events:auto;
+transform:scale(1);
+}
+
+/* IMAGE */
+.image-wrap{
+position:absolute;
+top:0;
+width:100%;
+display:flex;
+justify-content:center;
+}
+
+.nox{
+width:110%;
+max-width:500px;
+filter: drop-shadow(0 0 30px rgba(212,175,55,.2));
+opacity:.95;
+}
+
+/* PANEL */
+.panel{
+position:absolute;
+bottom:0;
+width:100%;
+padding:30px;
+background:linear-gradient(to top,#06070d,transparent 70%);
+}
+
+/* TEXT */
+.title{
+font-family:Cinzel;
+font-size:48px;
+text-align:center;
+letter-spacing:4px;
+}
+
+.subtitle{
+text-align:center;
+opacity:.7;
+margin-bottom:20px;
+font-size:13px;
+}
+
+/* INPUT */
+.input{
+display:flex;
+align-items:center;
+gap:10px;
+
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.1);
+padding:14px;
+border-radius:14px;
+margin-bottom:14px;
+transition:.3s;
+}
+
+.input:hover{
+border-color:rgba(212,175,55,.4);
+}
+
+.input i{
+color:#d4af37;
+}
+
+.input input{
+flex:1;
+background:none;
+border:none;
+outline:none;
+color:white;
+}
+
+/* BUTTON */
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#d4af37,#f5e6a6);
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 30px rgba(212,175,55,.2);
+}
+
+/* SWITCH */
+.switch{
+text-align:center;
+margin-top:15px;
+font-size:13px;
+opacity:.8;
+}
+
+.switch button{
+background:none;
+border:none;
+color:#f5e6a6;
+cursor:pointer;
+font-weight:600;
+}
