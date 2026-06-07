@@ -498,3 +498,24 @@ body{
         max-height:300px;
     }
 }
+.archive-active .nox-character{
+    animation:
+    floatNox 6s ease-in-out infinite,
+    ascend 2s ease forwards;
+}
+
+@keyframes ascend{
+
+    from{
+        transform:translateY(0) scale(1);
+        opacity:1;
+    }
+
+    to{
+        transform:
+        translateY(-40px)
+        scale(1.08);
+
+        opacity:0.8;
+    }
+}
