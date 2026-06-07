@@ -125,3 +125,22 @@ filter:drop-shadow(0 0 25px rgba(212,175,55,0.35));
 50%{transform:translateY(-10px);}
 100%{transform:translateY(0px);}
 }
+.home-nox{
+position:absolute;
+top:20%;
+left:50%;
+transform:translateX(-50%);
+width:180px;
+opacity:0;
+animation:noxReveal 2.5s forwards;
+}
+
+.home-nox img{
+width:100%;
+filter:drop-shadow(0 0 40px gold);
+}
+
+@keyframes noxReveal{
+0%{opacity:0; transform:translate(-50%,-20px) scale(0.8);}
+100%{opacity:1; transform:translate(-50%,0px) scale(1);}
+}
