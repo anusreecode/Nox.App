@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nox • Study Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@300;400;500;600&amp;display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .fantasy-text { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.03em; }
+        .magical-button { background: linear-gradient(145deg, #d4af77, #b8975e); color: #0a1428; font-weight: 700; transition: all 0.2s ease; }
+        .magical-button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212, 175, 119, 0.5); }
+        .nox-card { background: #132238; border: 1px solid #3b4a6b; transition: all 0.2s ease; }
+        .nox-card:hover { transform: translateY(-3px); border-color: #d4af77; }
+        .phone-frame { box-shadow: 0 25px 70px -15px rgb(0 0 0 / 0.6), 0 0 0 14px #111827, 0 0 0 18px #1f2937; }
+        @media (max-width: 640px) { .phone-frame { width: 100% !important; max-width: 100% !important; border-radius: 0 !important; border: none !important; box-shadow: none !important; } }
+        .library-bg { background: radial-gradient(circle at 50% 30%, #1a2a4a 0%, #0a1428 70%); }
+        .starry { background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(white 1px, transparent 1px); background-size: 70px 70px, 110px 110px; }
+        .section-header { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.04em; }
+        .screen { animation: fadeInScale 0.35s ease forwards; }
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+        .flashcard { transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .flashcard.flipped { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { backface-visibility: hidden; }
+        .flashcard-back { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="bg-[#0a1428] text-white">
+
+    <!-- LOGIN -->
+    <div id="screen-login" class="screen min-h-screen flex items-center justify-center p-6 library-bg starry">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="mx-auto w-24 h-24 rounded-full overflow-hidden border-2 border-[#d4af77]/40 mb-4">
+                    <img src="https://picsum.photos/id/1011/96/96" class="w-full h-full object-cover">
+                </div>
+                <h1 class="text-7xl font-bold tracking-tighter fantasy-text text-[#d4af77]">NOX</h1>
+                <p class="text-[#8fa3c7]">Your celestial study companion</p>
+            </div>
+            <div class="bg-[#0B1628] border border-[#3b4a6b] rounded-3xl p-8">
+                <h2 class="text-2xl font-semibold text-center mb-6">Welcome back, Scholar</h2>
+                <div class="space-y-4">
+                    <div><label class="text-xs text-[#8fa3c7]">Email</label><input id="login-email" type="email" value="alex@university.edu" class="w-full bg-[#132238] border border-[#3b4a6b] rounded-2xl px-4 py-3 text-sm"></div>
+                    <div><label class="text-xs text-[#8fa3c7]">Password</label><input id="login-password" type="password" value="demo123" class="w-full bg-[#132238] border border-[#3b4a6b] rounded-2xl px-4 py-3 text-sm"></div>
+                </div>
+                <button onclick="login()" class="magical-button w-full mt-6 py-4 rounded-3xl text-lg font-bold">Enter the Realm</button>
+                <p class="text-center mt-5 text-sm"><span class="text-[#8fa3c7]">New here?</span> <button onclick="showScreen('signup')" class="text-[#d4af77] font-medium">Create account</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGN UP -->
+    <div id="screen-signup" class="screen hidden min-h-screen flex items-center justify-center p-6 library-bg starry">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-6"><h1 class="text-5xl font-bold tracking-tighter fantasy-text text-[#d4af77]">Join Nox</h1></div>
+            <div class="bg-[#0B1628] border border-[#3b4a6b] rounded-3xl p-7">
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div><label class="text-xs text-[#8fa3c7]">First Name</label><input id="signup-first" value="Alex" class="w-full bg-[#132238] border border-[#3b4a6b] rounded-2xl px-4 py-3 text-sm"></div>
+                    <div><label class="text-xs text-[#8fa3c7]">Last Name</label><input id="signup-last" value="Rivera" class="w-full bg-[#132238] border border-[#3b4a6b] rounded-2xl px-4 py-3 text-sm"></div>
+                </div>
+                <div class="mb-4"><label class="text-xs text-[#8fa3c7]">Email</label><input id="signup-email" value="alex@university.edu" class="w-full bg-[#132238] border border-[#3b4a6b] rounded-2xl px-4 py-3 text-sm"></div>
+                <div class="mb-6"><label class="text-xs text-[#8fa3c7]">Password</label><input id="signup-pass" type="password" value="demo123" class="w-full bg-[#132238] border border-[#3b4a6b] rounded-2xl px-4 py-3 text-sm"></div>
+                <button onclick="signup()" class="magical-button w-full py-4 rounded-3xl text-lg font-bold">Create Account</button>
+                <p class="text-center mt-5 text-sm"><button onclick="showScreen('login')" class="text-[#d4af77]">Already have an account? Sign in</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="screen-app" class="screen hidden min-h-screen library-bg starry">
+        <div class="max-w-[420px] mx-auto min-h-screen flex flex-col">
+            <div class="phone-frame flex-1 bg-[#0B1628] mx-auto w-full max-w-[380px] rounded-[50px] overflow-hidden border-[14px] border-[#111827] flex flex-col">
+                
+                <div class="h-11 bg-[#0B1628] flex items-center justify-between px-6 text-xs font-medium flex-shrink-0">
+                    <div id="app-time" class="font-mono">3:57</div>
+                    <div class="flex gap-x-1.5 text-[#d4af77]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><span>100%</span></div>
+                </div>
+
+                <div id="app-content" class="flex-1 overflow-auto px-5 pt-4 pb-6">
+                    
+                    <!-- HOME -->
+                    <div id="home-content">
+                        <div class="flex justify-between items-center mb-5">
+                            <div>
+                                <h1 class="text-[36px] font-bold tracking-tighter fantasy-text text-[#d4af77]">NOX</h1>
+                                <p class="text-[#8fa3c7] text-sm -mt-1">Celestial Study Companion</p>
+                            </div>
+                            <div onclick="showSettings()" class="w-11 h-11 rounded-2xl overflow-hidden border border-[#d4af77]/40 cursor-pointer">
+                                <img src="https://picsum.photos/id/1011/44/44" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <h2 id="greeting" class="text-2xl font-semibold mb-1">Good evening, Alex ✨</h2>
+                        <p class="text-[#8fa3c7] text-sm mb-6">The stars align for your exam success</p>
+
+                        <!-- Progress Overview -->
+                        <div class="bg-[#132238] rounded-3xl p-4 mb-6 border border-[#3b4a6b]">
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="font-semibold">Your Progress</div>
+                                <div class="text-xs px-3 py-1 bg-[#1f2a44] rounded-full">8 day streak 🔥</div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 text-center">
+                                <div>
+                                    <div class="text-2xl font-bold text-[#d4af77]">267</div>
+                                    <div class="text-xs text-[#8fa3c7]">Flashcards</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-[#d4af77]">78%</div>
+                                    <div class="text-xs text-[#8fa3c7]">Avg Readiness</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-[#d4af77]">42</div>
+                                    <div class="text-xs text-[#8fa3c7]">Reviewed Today</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="uploadLecture()" class="magical-button w-full flex items-center justify-center gap-x-3 py-4 rounded-3xl text-lg font-bold mb-7">
+                            <i class="fa-solid fa-feather-alt"></i> <span>Upload Lecture</span>
+                        </button>
+
+                        <div class="mb-6">
+                            <h3 class="section-header text-xl font-semibold text-[#d4af77] mb-3">Signature Powers</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div onclick="showFeatureModal('Exam Mode', 'Compress promising notes for peak exam performance.')" class="nox-card p-4 rounded-3xl cursor-pointer">
+                                    <div class="flex gap-3"><i class="fa-solid fa-scroll text-[#d4af77] text-2xl mt-0.5"></i><div><div class="font-semibold">Exam Mode</div><div class="text-xs text-[#8fa3c7]">Compress promising notes</div></div></div>
+                                </div>
+                                <div onclick="showFeatureModal('Confusion Detector', 'Tracks topics mentioned often and gives smart suggestions.')" class="nox-card p-4 rounded-3xl cursor-pointer">
+                                    <div class="flex gap-3"><i class="fa-solid fa-eye text-[#d4af77] text-2xl mt-0.5"></i><div><div class="font-semibold">Confusion Detector</div><div class="text-xs text-[#8fa3c7]">Smart focus suggestions</div></div></div>
+                                </div>
+                                <div onclick="showFeatureModal('Lectures to Flashcards', 'Instantly converts any lecture into beautiful flashcards.')" class="nox-card p-4 rounded-3xl cursor-pointer">
+                                    <div class="flex gap-3"><i class="fa-solid fa-layer-group text-[#d4af77] text-2xl mt-0.5"></i><div><div class="font-semibold">Lectures → Flashcards</div><div class="text-xs text-[#8fa3c7]">Instant smart cards</div></div></div>
+                                </div>
+                                <div onclick="showFeatureModal('Multilingual Support', 'Get explanations in original language + simple English.')" class="nox-card p-4 rounded-3xl cursor-pointer">
+                                    <div class="flex gap-3"><i class="fa-solid fa-globe text-[#d4af77] text-2xl mt-0.5"></i><div><div class="font-semibold">Multilingual</div><div class="text-xs text-[#8fa3c7]">Simple English support</div></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="section-header text-xl font-semibold text-[#d4af77] mb-2">Study in Minutes</h3>
+                            <button onclick="startQuickReview()" class="magical-button w-full py-3.5 rounded-3xl font-bold text-lg">Start Quick Review</button>
+                            <button onclick="startQuiz()" class="w-full mt-3 py-3 rounded-3xl border border-[#d4af77] text-[#d4af77] font-semibold">Start Quiz Mode</button>
+                        </div>
+                    </div>
+
+                    <!-- SETTINGS -->
+                    <div id="settings-content" class="hidden">
+                        <div class="flex justify-between mb-6">
+                            <h2 class="text-3xl font-semibold">Settings</h2>
+                            <button onclick="showHome()" class="text-3xl text-[#8fa3c7]">×</button>
+                        </div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <img src="https://picsum.photos/id/1011/64/64" class="w-16 h-16 rounded-2xl border-2 border-[#d4af77]/60">
+                            <div><div id="settings-name" class="font-semibold text-xl">Alex Rivera</div><div class="text-sm text-[#8fa3c7]">Computer Science</div></div>
+                        </div>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between items-center py-2"><div>Push Notifications</div><input type="checkbox" checked class="accent-[#d4af77]"></div>
+                            <div class="flex justify-between items-center py-2"><div>Confusion Detector</div><input type="checkbox" checked class="accent-[#d4af77]"></div>
+                            <div class="flex justify-between items-center py-2"><div>Multilingual Mode</div><input type="checkbox" checked class="accent-[#d4af77]"></div>
+                        </div>
+                        <button onclick="logout()" class="w-full mt-8 py-3 rounded-3xl border border-red-500/60 text-red-400">Log Out</button>
+                    </div>
+
+                    <!-- LIBRARY -->
+                    <div id="library-content" class="hidden">
+                        <h2 class="text-2xl font-semibold mb-1 text-[#d4af77]">Your Library</h2>
+                        <p class="text-[#8fa3c7] text-sm mb-5">14 lectures • 267 flashcards</p>
+                        <div class="space-y-3">
+                            <div onclick="openFlashcards(0)" class="nox-card p-4 rounded-3xl cursor-pointer">
+                                <div class="flex justify-between"><div><div class="font-semibold">Organic Chemistry - Lecture 4</div><div class="text-xs text-[#8fa3c7]">2 days ago</div></div><div class="text-emerald-400 text-sm font-medium">87%</div></div>
+                                <div class="mt-2 text-xs text-[#d4af77]"><i class="fa-solid fa-layer-group mr-1"></i> 42 flashcards • View</div>
+                            </div>
+                            <div onclick="openFlashcards(1)" class="nox-card p-4 rounded-3xl cursor-pointer">
+                                <div class="flex justify-between"><div><div class="font-semibold">Data Structures - Week 5</div><div class="text-xs text-[#8fa3c7]">Today</div></div><div class="text-amber-400 text-sm font-medium">62%</div></div>
+                                <div class="mt-2 text-xs text-[#d4af77]"><i class="fa-solid fa-layer-group mr-1"></i> 31 flashcards • View</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Nav -->
+                <div class="h-[62px] bg-[#0B1628] border-t border-[#1f2a44] flex justify-around items-center text-sm flex-shrink-0">
+                    <div onclick="showHome()" class="flex flex-col items-center text-[#d4af77] cursor-pointer"><i class="fa-solid fa-home text-xl"></i><span class="text-xs">Home</span></div>
+                    <div onclick="showLibrary()" class="flex flex-col items-center text-[#8fa3c7] cursor-pointer"><i class="fa-solid fa-book text-xl"></i><span class="text-xs">Library</span></div>
+                    <div onclick="startQuickReview()" class="flex flex-col items-center text-[#8fa3c7] cursor-pointer"><i class="fa-solid fa-graduation-cap text-xl"></i><span class="text-xs">Review</span></div>
+                    <div onclick="showSettings()" class="flex flex-col items-center text-[#8fa3c7] cursor-pointer"><i class="fa-solid fa-cog text-xl"></i><span class="text-xs">Settings</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Modal -->
+    <div id="feature-modal" onclick="this.classList.add('hidden')" class="hidden fixed inset-0 bg-black/70 flex items-end justify-center z-50">
+        <div onclick="event.stopImmediatePropagation()" class="w-full max-w-[380px] bg-[#0B1628] rounded-t-3xl p-6">
+            <h3 id="modal-title" class="text-2xl font-semibold text-[#d4af77] mb-3"></h3>
+            <p id="modal-desc" class="text-[#c3d0e8]"></p>
+            <div class="mt-6 flex gap-3">
+                <button onclick="document.getElementById('feature-modal').classList.add('hidden')" class="flex-1 py-3 rounded-2xl border">Close</button>
+                <button onclick="activateFeature()" class="flex-1 py-3 rounded-2xl magical-button text-[#0a1428]">Try Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flashcard Modal -->
+    <div id="flashcard-modal" onclick="this.classList.add('hidden')" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[60] p-4">
+        <div onclick="event.stopImmediatePropagation()" class="w-full max-w-[340px] bg-[#0B1628] rounded-3xl p-6 border border-[#d4af77]/30">
+            <div class="flex justify-between mb-4">
+                <h3 class="font-semibold">Flashcards</h3>
+                <button onclick="closeFlashcards()" class="text-2xl">&times;</button>
+            </div>
+            <div id="flashcard" onclick="flipCard()" class="flashcard w-full h-52 bg-[#132238] rounded-3xl border border-[#d4af77]/40 flex items-center justify-center text-center p-6 mb-4 relative">
+                <div id="flashcard-front" class="flashcard-front absolute w-full px-6"><p id="card-question" class="text-lg font-medium"></p></div>
+                <div id="flashcard-back" class="flashcard-back absolute w-full px-6 hidden"><p id="card-answer" class="text-lg"></p></div>
+            </div>
+            <div class="flex justify-between text-sm">
+                <button onclick="prevCard()" class="px-4 py-2"><i class="fa-solid fa-arrow-left mr-2"></i> Previous</button>
+                <div class="text-[#8fa3c7]"><span id="card-counter">1</span> / <span id="card-total">5</span></div>
+                <button onclick="nextCard()" class="px-4 py-2">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" onclick="this.classList.add('hidden')" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[70] p-4">
+        <div onclick="event.stopImmediatePropagation()" class="w-full max-w-[360px] bg-[#0B1628] rounded-3xl p-6 border border-[#d4af77]/30">
+            <div class="flex justify-between mb-4">
+                <h3 class="font-semibold">Quiz Mode</h3>
+                <button onclick="closeQuiz()" class="text-xl">&times;</button>
+            </div>
+            
+            <div id="quiz-content">
+                <div class="mb-4">
+                    <div class="flex justify-between text-sm mb-1"><span>Question <span id="quiz-current">1</span>/5</span><span id="quiz-score">Score: 0</span></div>
+                    <div class="w-full bg-[#1f2a44] h-2 rounded-full"><div id="quiz-progress" class="bg-[#d4af77] h-2 rounded-full transition-all" style="width: 20%"></div></div>
+                </div>
+                
+                <p id="quiz-question" class="text-lg font-medium mb-5"></p>
+                
+                <div id="quiz-options" class="space-y-3"></div>
+            </div>
+
+            <div id="quiz-result" class="hidden text-center py-4">
+                <div class="text-4xl mb-2">🎉</div>
+                <div class="text-2xl font-bold mb-1">Quiz Complete!</div>
+                <div id="final-score" class="text-xl text-[#d4af77] mb-4"></div>
+                <button onclick="restartQuiz()" class="magical-button px-8 py-2 rounded-2xl">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== CORE FUNCTIONS ====================
+        function showScreen(screen) {
+            document.querySelectorAll('.screen').forEach(el => el.classList.add('hidden'));
+            if (screen === 'login') document.getElementById('screen-login').classList.remove('hidden');
+            else if (screen === 'signup') document.getElementById('screen-signup').classList.remove('hidden');
+            else if (screen === 'app') { document.getElementById('screen-app').classList.remove('hidden'); showHome(); }
+        }
+
+        function login() {
+            const email = document.getElementById('login-email').value || "demo@university.edu";
+            const name = email.split('@')[0];
+            localStorage.setItem('nox_user', JSON.stringify({ name, email }));
+            showScreen('app');
+            setTimeout(() => {
+                document.getElementById('greeting').innerHTML = `Good evening, ${name} ✨`;
+                document.getElementById('settings-name').innerHTML = name;
+            }, 300);
+        }
+
+        function signup() {
+            const first = document.getElementById('signup-first').value || "Alex";
+            localStorage.setItem('nox_user', JSON.stringify({ name: first }));
+            showScreen('app');
+            setTimeout(() => {
+                document.getElementById('greeting').innerHTML = `Welcome, ${first} ✨`;
+                document.getElementById('settings-name').innerHTML = first;
+            }, 300);
+        }
+
+        function showHome() {
+            hideAllContents();
+            document.getElementById('home-content').classList.remove('hidden');
+        }
+
+        function showLibrary() {
+            hideAllContents();
+            document.getElementById('library-content').classList.remove('hidden');
+        }
+
+        function showSettings() {
+            hideAllContents();
+            document.getElementById('settings-content').classList.remove('hidden');
+        }
+
+        function hideAllContents() {
+            document.getElementById('home-content').classList.add('hidden');
+            document.getElementById('settings-content').classList.add('hidden');
+            document.getElementById('library-content').classList.add('hidden');
+        }
+
+        function showFeatureModal(title, desc) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('feature-modal').classList.remove('hidden');
+            document.getElementById('feature-modal').classList.add('flex');
+        }
+
+        function activateFeature() {
+            document.getElementById('feature-modal').classList.add('hidden');
+            alert("Feature activated in demo!");
+        }
+
+        function uploadLecture() {
+            alert("Upload options would appear here (Record / File / Paste).");
+        }
+
+        function startQuickReview() {
+            alert("Starting 5-minute focused review (Demo)");
+        }
+
+        function logout() {
+            localStorage.removeItem('nox_user');
+            showScreen('login');
+        }
+
+        // ==================== FLASHCARDS ====================
+        let currentCards = [];
+        let currentCardIndex = 0;
+
+        const sampleCards = [
+            { q: "What is the main function of mitochondria?", a: "To produce energy (ATP) for the cell." },
+            { q: "Define photosynthesis.", a: "Process by which plants convert light into chemical energy." },
+            { q: "What is the powerhouse of the cell?", a: "Mitochondria" },
+            { q: "Name the process of cell division.", a: "Mitosis and Meiosis" },
+            { q: "What does DNA stand for?", a: "Deoxyribonucleic Acid" }
+        ];
+
+        function openFlashcards(lectureIndex) {
+            currentCards = sampleCards;
+            currentCardIndex = 0;
+            document.getElementById('flashcard-modal').classList.remove('hidden');
+            document.getElementById('flashcard-modal').classList.add('flex');
+            showCard();
+        }
+
+        function showCard() {
+            const card = currentCards[currentCardIndex];
+            document.getElementById('card-question').innerText = card.q;
+            document.getElementById('card-answer').innerText = card.a;
+            document.getElementById('card-counter').innerText = currentCardIndex + 1;
+            document.getElementById('card-total').innerText = currentCards.length;
+
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.remove('flipped');
+            document.getElementById('flashcard-front').classList.remove('hidden');
+            document.getElementById('flashcard-back').classList.add('hidden');
+        }
+
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            const front = document.getElementById('flashcard-front');
+            const back = document.getElementById('flashcard-back');
+            flashcard.classList.toggle('flipped');
+            if (flashcard.classList.contains('flipped')) {
+                front.classList.add('hidden');
+                back.classList.remove('hidden');
+            } else {
+                front.classList.remove('hidden');
+                back.classList.add('hidden');
+            }
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % currentCards.length;
+            showCard();
+        }
+
+        function prevCard() {
+            currentCardIndex = (currentCardIndex - 1 + currentCards.length) % currentCards.length;
+            showCard();
+        }
+
+        function closeFlashcards() {
+            document.getElementById('flashcard-modal').classList.add('hidden');
+            document.getElementById('flashcard-modal').classList.remove('flex');
+        }
+
+        // ==================== QUIZ MODE ====================
+        let quizQuestions = [
+            { q: "What is the powerhouse of the cell?", options: ["Nucleus", "Mitochondria", "Ribosome", "Golgi"], answer: 1 },
+            { q: "What does DNA stand for?", options: ["Deoxyribonucleic Acid", "Dynamic Neural Activity", "Digital Network Architecture", "Double Nucleic Acid"], answer: 0 },
+            { q: "Process by which plants make food is called?", options: ["Respiration", "Photosynthesis", "Fermentation", "Digestion"], answer: 1 },
+            { q: "Which organelle is responsible for protein synthesis?", options: ["Mitochondria", "Ribosome", "Lysosome", "Vacuole"], answer: 1 },
+            { q: "What is the basic unit of life?", options: ["Atom", "Molecule", "Cell", "Tissue"], answer: 2 }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+
+        function startQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-modal').classList.remove('hidden');
+            document.getElementById('quiz-modal').classList.add('flex');
+            document.getElementById('quiz-content').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const q = quizQuestions[currentQuizIndex];
+            document.getElementById('quiz-question').innerText = q.q;
+            document.getElementById('quiz-current').innerText = currentQuizIndex + 1;
+            document.getElementById('quiz-score').innerText = `Score: ${quizScore}`;
+            document.getElementById('quiz-progress').style.width = `${((currentQuizIndex) / quizQuestions.length) * 100}%`;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left px-4 py-3 rounded-2xl bg-[#132238] hover:bg-[#1f2a44] border border-[#3b4a6b]';
+                btn.innerText = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, button) {
+            const correct = quizQuestions[currentQuizIndex].answer;
+            const buttons = document.querySelectorAll('#quiz-options button');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selected === correct) {
+                quizScore++;
+                button.classList.add('bg-emerald-600', 'border-emerald-500');
+            } else {
+                button.classList.add('bg-red-600', 'border-red-500');
+                buttons[correct].classList.add('bg-emerald-600', 'border-emerald-500');
+            }
+
+            document.getElementById('quiz-score').innerText = `Score: ${quizScore}`;
+
+            setTimeout(() => {
+                currentQuizIndex++;
+                if (currentQuizIndex < quizQuestions.length) {
+                    showQuizQuestion();
+                } else {
+                    showQuizResult();
+                }
+            }, 1200);
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-content').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('final-score').innerText = `You scored ${quizScore} out of ${quizQuestions.length}`;
+        }
+
+        function restartQuiz() {
+            document.getElementById('quiz-modal').classList.add('hidden');
+            document.getElementById('quiz-modal').classList.remove('flex');
+            startQuiz();
+        }
+
+        function closeQuiz() {
+            document.getElementById('quiz-modal').classList.add('hidden');
+            document.getElementById('quiz-modal').classList.remove('flex');
+        }
+
+        // ==================== INIT ====================
+        function init() {
+            const user = localStorage.getItem('nox_user');
+            if (user) {
+                showScreen('app');
+                const data = JSON.parse(user);
+                setTimeout(() => {
+                    document.getElementById('greeting').innerHTML = `Good evening, ${data.name} ✨`;
+                    document.getElementById('settings-name').innerHTML = data.name;
+                }, 300);
+            } else {
+                showScreen('login');
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
